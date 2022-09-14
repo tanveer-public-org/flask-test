@@ -9,12 +9,19 @@ app = Flask(__name__)
 
 config_key = "TEST_INT_VALUE"
 secret_key = "SAMPLE_SECRET"
+secret_key2 = "SAMPLE_SECRET2"
 
 if secret_key in os.environ:
     secrets = os.environ['SAMPLE_SECRET']
 else:
-    secrets= "No secrets were found"
+    secrets= "No secrets from Secret manager were found"
 
+if secret_key2 in os.environ:
+    secrets2 = os.environ['SAMPLE_SECRET2']
+else:
+    secrets2= "No secret from parameter store were found"
+    
+    
 if config_key in os.environ:
     configs = os.environ['TEST_INT_VALUE']
 else:
@@ -27,8 +34,9 @@ def hello():
               python_version : {0}<br/>  
               flask_version :{1}<br/>
               secrets : {2}<br/>
-              configs : {3}<br/>
-                """.format(runtime_version,framework_version,secrets,configs)
+              secrets : {3}<br/>
+              configs : {4}<br/>
+                """.format(runtime_version,framework_version,secrets,secrets2,configs)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
